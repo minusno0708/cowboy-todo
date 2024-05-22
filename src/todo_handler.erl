@@ -5,6 +5,7 @@
 init(Req0, State) ->
     case maps:get(method, Req0) of
         <<"GET">> ->
+            database:get_tasks(),
             Req = cowboy_req:reply(
                 200,
                 #{<<"content-type">> => <<"text/plain">>},
@@ -12,6 +13,7 @@ init(Req0, State) ->
                 Req0
             );
         <<"POST">> ->
+            database:create_task(),
             Req = cowboy_req:reply(
                 200,
                 #{<<"content-type">> => <<"text/plain">>},
